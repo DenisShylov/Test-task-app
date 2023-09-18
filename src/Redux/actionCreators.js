@@ -7,6 +7,14 @@ export const ADD_REPOS = 'ADD_REPOS';
 export const PAGE_INCREMENT = 'PAGE_INCREMENT';
 export const LENGTH = 'LENGTH';
 export const FILTER_REPOS = 'FILTER_REPOS';
+export const USER_NAME = 'USER_NAME';
+
+export const addUserName = (userNickName) => {
+  return {
+    type: USER_NAME,
+    payload: userNickName,
+  };
+};
 
 export const addRepos = (data) => {
   return { type: ADD_REPOS, payload: data };

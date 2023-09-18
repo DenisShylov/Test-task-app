@@ -3,9 +3,14 @@ import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material';
 import Login from '../Auth/Login';
 import Logout from '../Auth/Logout';
 import { useAuth0 } from '@auth0/auth0-react';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const { isAuthenticated } = useAuth0();
+  const navigate = useNavigate();
+  const handleSettings = () => {
+    navigate('../settings');
+  };
   return (
     <Box sx={{ display: 'flex' }}>
       <AppBar component="nav">
@@ -23,7 +28,11 @@ const Header = () => {
                 Settings
               </Button>
             ) : (
-              <Button variant="contained" color="secondary">
+              <Button
+                onClick={handleSettings}
+                variant="contained"
+                color="secondary"
+              >
                 Settings
               </Button>
             )}

@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Auth0Provider } from '@auth0/auth0-react';
 import { Provider } from 'react-redux';
-import AuthRequire from './Components/Auth/AuthRequire';
 import store from './Redux/store';
 import App from './App';
 import Header from './Components/Header/Header';
@@ -10,23 +8,38 @@ import Header from './Components/Header/Header';
 import './index.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import MainPage from './Pages/MainPage';
+import { Auth0ProviderWithNavigate } from './Components/Auth/auth0ProviderWithNavigate';
+import Settings from './Components/Settings/Settings';
+import ModalWindow from './Components/ModalWindow/ModalWindow';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
-    <Auth0Provider
-      domain="dev-nrt5uyz77ft2z0s4.us.auth0.com"
-      clientId="a9ue3EpwO1s3pNZ4pfjJIAKBxdhs1gyS"
-      authorizationParams={{ redirect_uri: window.location.origin }}
-    >
+    <Auth0ProviderWithNavigate>
       <Provider store={store}>
         <Header />
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/repos" element={<MainPage />} />
+          <Route
+            path="/repos/:id"
+            element={
+              <>
+                <MainPage /> <ModalWindow />
+              </>
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <>
+                <MainPage /> <Settings />{' '}
+              </>
+            }
+          />
         </Routes>
       </Provider>
-    </Auth0Provider>
+    </Auth0ProviderWithNavigate>
   </BrowserRouter>
 );
 

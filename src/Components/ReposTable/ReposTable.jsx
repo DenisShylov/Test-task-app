@@ -19,9 +19,11 @@ import {
   repositoriesSelector,
 } from '../../Redux/selectors';
 import moment from 'moment/moment';
+import { useNavigate } from 'react-router-dom';
 
 const ReposTable = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { user } = useAuth0();
   const counterPage = useSelector(counterPageSelector);
   const reposData = useSelector(repositoriesSelector);
@@ -35,14 +37,17 @@ const ReposTable = () => {
 
   useEffect(() => {
     if (inView && reposData.length < dataLength) {
-      dispatch(fetchingRepos(user.nickname, 5, counterPage));
+      dispatch(fetchingRepos(user?.nickname, 5, counterPage));
     } else return;
   }, [inView]);
 
+  const handleClickRepos = (id) => {
+    navigate(`/repos/${id}`);
+  };
   return (
     <TableContainer sx={{ height: '135px', mt: 3 }} component={Paper}>
       <Table
-        sx={{ minWidth: 650, maxHeight: '200px' }}
+        sx={{ minWidth: 650, maxHeight: '400px' }}
         size="small"
         aria-label="a dense table"
       >
@@ -66,12 +71,17 @@ const ReposTable = () => {
         <TableBody>
           {condition.map((row) => (
             <TableRow
-              onClick={(e) => console.log(e.target)}
               key={row?.name}
+              onClick={() => handleClickRepos(row.id)}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell ref={ref} component="th" scope="row">
-                {row.name}
+              <TableCell
+                ref={ref}
+                component="td"
+                scope="row"
+                sx={{ height: '50px' }}
+              >
+                {row?.name}
               </TableCell>
               <TableCell align="right">{row?.language}</TableCell>
               <TableCell align="right">

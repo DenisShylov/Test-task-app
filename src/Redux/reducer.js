@@ -3,6 +3,7 @@ import {
   FILTER_REPOS,
   LENGTH,
   PAGE_INCREMENT,
+  USER_NAME,
 } from './actionCreators';
 
 const initialState = {
@@ -11,9 +12,16 @@ const initialState = {
   dataLength: 0,
   fullReposList: [],
   filterRepositories: [],
+  userName: '',
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case USER_NAME: {
+      return {
+        ...state,
+        userName: action.payload,
+      };
+    }
     case ADD_REPOS:
       if (action.payload.length > 0) {
         return {

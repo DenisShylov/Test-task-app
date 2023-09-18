@@ -14,7 +14,9 @@ const SearchTextField = () => {
     const filtered = reposData.filter((item) =>
       item.name.toLowerCase().includes(value.toLowerCase())
     );
-    dispatch(filterRepos(filtered));
+    if (!value) {
+      dispatch(filterRepos([]));
+    } else dispatch(filterRepos(filtered));
   }, [value]);
 
   const handleChange = (e) => {
