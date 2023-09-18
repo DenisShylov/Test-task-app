@@ -45,9 +45,9 @@ const ReposTable = () => {
     navigate(`/repos/${id}`);
   };
   return (
-    <TableContainer sx={{ height: '135px', mt: 3 }} component={Paper}>
+    <TableContainer sx={{ height: 288, mt: 3 }} component={Paper}>
       <Table
-        sx={{ minWidth: 650, maxHeight: '400px' }}
+        sx={{ maxHeight: '400px' }}
         size="small"
         aria-label="a dense table"
       >

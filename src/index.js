@@ -5,12 +5,13 @@ import store from './Redux/store';
 import App from './App';
 import Header from './Components/Header/Header';
 
-import './index.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import MainPage from './Pages/MainPage';
 import { Auth0ProviderWithNavigate } from './Components/Auth/auth0ProviderWithNavigate';
 import Settings from './Components/Settings/Settings';
 import ModalWindow from './Components/ModalWindow/ModalWindow';
+
+import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
