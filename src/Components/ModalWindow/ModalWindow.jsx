@@ -1,9 +1,7 @@
 import { Box, Typography, Modal } from '@mui/material';
 import React, { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
-import { useSelector } from 'react-redux';
-import { repositoriesSelector } from '../../Redux/selectors';
 
 const ModalWindow = () => {
   const style = {
@@ -20,14 +18,7 @@ const ModalWindow = () => {
 
   const [open, setOpen] = useState(true);
   const navigate = useNavigate();
-  const location = useLocation().pathname;
-  const locationIdRepos = location.slice(7);
   const { user } = useAuth0();
-  const locationSettings = location === '/settings';
-
-  const repositoryInfo = useSelector(repositoriesSelector).filter(
-    (rep) => rep.id.toString() === locationIdRepos
-  );
 
   const handleClose = () => {
     setOpen(false);
@@ -44,43 +35,14 @@ const ModalWindow = () => {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            {locationSettings ? 'User info for GitHub' : 'Repositories info'}
+            User info for GitHub
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            {locationSettings
-              ? `Nick Name: ${user?.nickname}`
-              : `Full Name: ${repositoryInfo[0]?.full_name}`}
+            Nick Name: {user?.nickname}
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            {locationSettings
-              ? `Name: ${user?.name}`
-              : `Language: 
-            ${repositoryInfo[0]?.language}`}
+            Name: {user?.name}
           </Typography>
-          {!locationSettings ? (
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              {`Default branch: ${repositoryInfo[0]?.default_branch}`}
-            </Typography>
-          ) : (
-            ''
-          )}
-          {!locationSettings ? (
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              {`Owner: ${repositoryInfo[0]?.owner?.login}`}
-            </Typography>
-          ) : (
-            ''
-          )}
-          {!locationSettings ? (
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              URL:{' '}
-              <Link to={`${repositoryInfo[0]?.html_url}`}>
-                {repositoryInfo[0]?.name}
-              </Link>
-            </Typography>
-          ) : (
-            ''
-          )}
         </Box>
       </Modal>
     </>
