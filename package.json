@@ -5,9 +5,11 @@
   "dependencies": {
     "@auth0/auth0-react": "^2.2.1",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@mui/material": "^5.14.9",
+    "@mui/icons-material": "^5.14.9",
+    "@mui/material": "^5.14.10",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
