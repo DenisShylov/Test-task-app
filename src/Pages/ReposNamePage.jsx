@@ -53,13 +53,13 @@ const ReposNamePage = () => {
           component="nav"
           aria-label="mailbox folders"
         >
-          <ListItem sx={{ minWidth: 200, textAlign: 'center' }}>
+          <ListItem sx={{ minWidth: 250, textAlign: 'center' }}>
             <ListItemText
               primary={`Full Name: ${repositoryInfo[0]?.full_name}`}
             />
           </ListItem>
           <Divider />
-          <ListItem divider>
+          <ListItem divider sx={{ border: 'none' }}>
             <ListItemText
               primary={`Language: 
             ${repositoryInfo[0]?.language}`}
