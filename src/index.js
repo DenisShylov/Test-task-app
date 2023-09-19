@@ -9,37 +9,44 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import MainPage from './Pages/MainPage';
 import { Auth0ProviderWithNavigate } from './Components/Auth/auth0ProviderWithNavigate';
 import Settings from './Components/Settings/Settings';
-import ModalWindow from './Components/ModalWindow/ModalWindow';
-
+import { ThemeProvider } from '@mui/material/styles';
+import theme from './Styles/customTheme';
 import './index.css';
+import ReposNamePage from './Pages/ReposNamePage';
+import { CacheProvider } from '@emotion/react';
+import cache from './Styles/emotionCache';
+import AuthenticationGuard from './Components/Auth/AuthenticationGuard.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
     <Auth0ProviderWithNavigate>
-      <Provider store={store}>
-        <Header />
-        <Routes>
-          <Route path="/" element={<App />} />
-          <Route path="/repos" element={<MainPage />} />
-          <Route
-            path="/repos/:id"
-            element={
-              <>
-                <MainPage /> <ModalWindow />
-              </>
-            }
-          />
-          <Route
-            path="/settings"
-            element={
-              <>
-                <MainPage /> <Settings />{' '}
-              </>
-            }
-          />
-        </Routes>
-      </Provider>
+      <ThemeProvider theme={theme}>
+        <CacheProvider value={cache}>
+          <Provider store={store}>
+            <Header />
+            <Routes>
+              <Route path="/" element={<App />} />
+              <Route
+                path="/repos"
+                element={<AuthenticationGuard component={MainPage} />}
+              />
+              <Route
+                path="/repos/:id"
+                element={<AuthenticationGuard component={ReposNamePage} />}
+              />
+              <Route
+                path="/settings"
+                element={
+                  <>
+                    <AuthenticationGuard component={MainPage && Settings} />
+                  </>
+                }
+              />
+            </Routes>
+          </Provider>
+        </CacheProvider>
+      </ThemeProvider>
     </Auth0ProviderWithNavigate>
   </BrowserRouter>
 );
